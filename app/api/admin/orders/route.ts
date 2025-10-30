@@ -12,13 +12,11 @@ type Order = {
 }
 
 export async function GET(req: NextRequest) {
-  console.log('GET');
-  const filePath = path.join(process.cwd(), "data", "mock-orders.json");
-  const data = fs.readFileSync(filePath, "utf-8");
-  const orders = JSON.parse(data);
-  console.log(orders, 'OPRDERS');
-  try {
 
+  try {
+    const filePath = path.join(process.cwd(), "data", "mock-orders.json");
+    const data = fs.readFileSync(filePath, "utf-8");
+    const orders = JSON.parse(data);
     const status = req.nextUrl.searchParams.get("status");
     const result = status ? orders.filter((order: Order) => order.status === status) : orders;
     return NextResponse.json(result);
